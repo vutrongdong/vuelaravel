@@ -1,9 +1,6 @@
 <template>
     <div>
         <navbar></navbar>
-<!--         <div id="success">
-            {{ success }}
-        </div> -->
         <router-view/>
 
     </div>

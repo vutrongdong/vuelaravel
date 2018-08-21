@@ -30,8 +30,8 @@ class BaseRepository implements RepositoryInterface {
 		return $this->model->create($data);
 	}
 
-	public function update($id, array $attributes) {
-		return $this->model->find($id)->update($attributes);
+	public function Update($id, array $data) {
+		return $this->model->find($id)->update($data);
 	}
 	public function Destroy($id) {
 		return $this->model->find($id)->delete();
