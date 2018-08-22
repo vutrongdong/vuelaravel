@@ -36,11 +36,13 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Sweetalert from 'sweetalert';
 export default{
     data(){
         return {
-            Category:[]
+            Category:[],
+            url:'/CustomCate/'
         }
     },
     created(){
@@ -48,7 +50,7 @@ export default{
     },
     methods:{
         CustomCate(){
-            this.$http.get('CustomCate').then(response=>{
+            axios.get('/CustomCate/').then(response=>{
                 console.log(response.data);
                 this.Category = response.data.values;
             })
@@ -63,7 +65,7 @@ export default{
           })
             .then((willDelete) => {
               if (willDelete) {
-                this.$http.delete('CustomCate/'+cate).then(response=>{
+                this.$http.delete(this.url+cate).then(response=>{
                   let index = this.Category.indexOf(cate);
                   this.Category.splice(index,1);
                   swal("Poof! Your imaginary file has been deleted!", {

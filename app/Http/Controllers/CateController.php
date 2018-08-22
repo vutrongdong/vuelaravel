@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CateAddRequest;
-use App\Http\Requests\UpdateCateRequest;
-use App\Repository\Category\Category;
+// use App\Http\Requests\CateAddRequest;
 use App\Repository\Category\CategoryRepository;
 use Illuminate\Http\Request;
 
@@ -41,7 +39,7 @@ class CateController extends Controller {
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(CateAddRequest $request) {
+	public function store(Request $request) {
 		$data = $request->all();
 		$data['slug'] = str_slug($request->name);
 		$addcate = $this->cate->Create($data);
@@ -76,11 +74,10 @@ class CateController extends Controller {
 	 * @param  \App\Cate  $cate
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(UpdateCateRequest $request, $id) {
-		$category = Category::find($id);
+	public function update(Request $request, $id) {
 		$data = $request->all();
 		$data['slug'] = str_slug($request->name);
-		$category->update($data);
+		$category = $this->cate->Update($id, $data);
 		return response()->json(["edits" => $category, 'message' => 'edit seccess']);
 	}
 

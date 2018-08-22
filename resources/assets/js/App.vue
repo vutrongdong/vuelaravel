@@ -1,6 +1,7 @@
 <template>
     <div>
         <navbar></navbar>
+        <notifications group="foo" />
         <router-view/>
 
     </div>

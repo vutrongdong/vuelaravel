@@ -23,3 +23,6 @@ Route::get('/test', function () {
 });
 
 Route::resource('/CustomCate', 'CateController');
+Route::resource('/CustomProd', 'ProductController');
+
+?>

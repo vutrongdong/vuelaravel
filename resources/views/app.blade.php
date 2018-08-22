@@ -25,6 +25,8 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="backend/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    <script src="backend/ckeditor/ckeditor.js"></script>
+    <script src="backend/ckfinder/ckfinder.js"></script>
 </head>
 
 <body>
@@ -51,7 +53,10 @@
     <!-- DataTables JavaScript -->
     <script src="backend/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="backend/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-    {{-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> --}}
+    <link href="backend/datepicker3.css" rel="stylesheet">
+    {{-- <link href="backend/styles.css" rel="stylesheet"> --}}
+    {{-- <script src="backend/lumino.glyphs.js"></script> --}}
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
@@ -61,6 +66,16 @@
             });
         });
     </script>
+{{--     <script>
+        CKEDITOR.replace('description', {
+            filebrowserBrowseUrl: '{{ asset('backend/ckfinder/ckfinder.html') }}',
+            filebrowserImageBrowseUrl: '{{ asset('backend/ckfinder/ckfinder.html?type=Images') }}',
+            filebrowserFlashBrowseUrl: '{{ asset('backend/ckfinder/ckfinder.html?type=Flash') }}',
+            filebrowserUploadUrl: '{{ asset('backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files') }}',
+            filebrowserImageUploadUrl: '{{ asset('backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images') }}',
+            filebrowserFlashUploadUrl: '{{ asset('backend/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash') }}'
+        } );
+    </script> --}}
 </body>
 
 </html>

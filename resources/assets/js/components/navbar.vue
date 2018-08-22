@@ -47,7 +47,7 @@
                     <!-- /input-group -->
                 </li>
                 <li>
-                    <a href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                    <router-link to="/"><i class="fa fa-dashboard fa-fw"></i> Dashboard</router-link>
                 </li>
                 <li>
                     <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Category<span class="fa arrow"></span></a>
@@ -65,10 +65,10 @@
                     <a href="#"><i class="fa fa-cube fa-fw"></i> Product<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">List Product</a>
+                            <router-link to="/product">List Product</router-link>
                         </li>
                         <li>
-                            <a href="#">Add Product</a>
+                            <router-link to="/product/create">Add Product</router-link>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

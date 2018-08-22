@@ -18,9 +18,19 @@
 
  Vue.http.headers.common['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
  import Router from './router/router.js';
- Vue.component('App', require('./App.vue'));
+ import VeeValidate from 'vee-validate';
+ import Notifications from 'vue-notification'
 
- const app = new Vue({
+/*
+or for SSR:
+import Notifications from 'vue-notification/dist/ssr.js'
+*/
+
+Vue.use(Notifications)
+Vue.use(VeeValidate);
+Vue.component('App', require('./App.vue'));
+
+const app = new Vue({
     el: '#app',
     router: Router,
 });

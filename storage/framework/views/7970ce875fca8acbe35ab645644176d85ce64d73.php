@@ -25,6 +25,8 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="backend/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    <script src="backend/ckeditor/ckeditor.js"></script>
+    <script src="backend/ckfinder/ckfinder.js"></script>
 </head>
 
 <body>
@@ -51,7 +53,10 @@
     <!-- DataTables JavaScript -->
     <script src="backend/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="backend/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <link href="backend/datepicker3.css" rel="stylesheet">
     
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
@@ -61,6 +66,7 @@
             });
         });
     </script>
+
 </body>
 
 </html>

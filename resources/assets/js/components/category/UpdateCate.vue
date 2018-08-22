@@ -8,7 +8,7 @@
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <Form @formSubmit="Update()"  v-bind:category="category,errors"></Form>
+                        <Form @submit="Update()"  v-bind:category="category"></Form>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -24,8 +24,7 @@ export default{
     data(){
         return{
             category:{
-            },
-            errors:[],
+            }
         }
     },
     components:{Form},
@@ -43,13 +42,7 @@ export default{
             this.$http.put('CustomCate/'+ this.$route.params.idcate,this.category).then(response=>{
                 console.log(response.data);
                 this.$router.push('/category');
-                if(this.errors){
-                    this.errors =[];
-                }
-            },response=>{
-                this.errors= response.data.errors;
             }
-
             );
         }
     }

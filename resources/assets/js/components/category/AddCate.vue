@@ -9,7 +9,7 @@
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <Form @formSubmit="Create()" v-bind:category="category,errors,type"></Form>
+                        <Form @submit="Create()" v-bind:category="category,type"></Form>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -20,33 +20,34 @@
 </template>
 
 <script>
+import Notifications from 'vue-notification'
 import Form from './FormCate.vue';
 export default{
     data(){
         return{
             category:{},
-            errors:[],
+            // errors:[],
             type:'create'
         };
     },
     components:{Form},
     methods:{
         Create(){
-            this.$http.post('/CustomCate',this.category).then(response=>{
-                        //lấy dữ liệu thông báo thánh công
-                        this.success = response.data.message;
-                        this.$router.push('/category');
-                        if(this.errors){
-                            this.errors =[];
-                        }
-                        $(document).ready(function() {
-                            $('#success').addClass('alert alert-success').fadeOut(3000);
-                        });
-                        console.log(response.data);
-                    },response=>{
-                        this.errors= response.data.errors;
-                    });
+            this.$http.post('/CustomCate',this.category).then(response=>
+            {
+
+                this.$router.push('/category');
+                this.$notify({
+                  group: 'foo',
+                  title: 'thông báo',
+                  text: 'Thêm thành công',
+                  type:'success'
+              });
+            });
         }
     }
 }
 </script>
+<style>
+
+</style>
