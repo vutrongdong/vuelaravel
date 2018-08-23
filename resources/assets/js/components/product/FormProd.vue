@@ -26,8 +26,10 @@
             </div>
             <div class="form-group">
                 <label>Images</label>
-                <input @change="imageChanged" type="file" name="image" v-validate="'required'">
+                <input @change="imageChanged" type="file" name="image" v-validate="'required'"><br>
+                <img width="200px" v-show="this.type!=='create'" :src="'upload/' + product.image" alt="">
                 <span v-show="errors.has('image')" style="color:red">*{{ errors.first('image') }}</span>
+
             </div>
             <div class="form-group">
                 <label>Promotion</label>
@@ -63,7 +65,7 @@ export default{
 
         }
     },
-    props:['category','product','type'],
+    props:['category','product','type','productOld'],
     methods:{
         imageChanged(e){
             console.log(e.target.files[0]);

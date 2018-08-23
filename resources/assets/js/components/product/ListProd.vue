@@ -28,11 +28,12 @@
                             <td>{{ prod.name }}</td>
                             <td>{{ prod.price }}</td>
                             <td>{{ prod.promotion }}</td>
-                            <td><img width="100px" :src="'upload/'+prod.image" alt=""></td>
+                            <!-- :src="'upload/'+prod.image" -->
+                            <td><img :src="'upload/'+prod.image" width="100px" alt=""></td>
                             <td>{{ prod.quantity }}</td>
                             <td v-if='prod.status==1'>Mới</td>
                             <td v-else>Cũ</td>
-                            <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a href="#"> Delete</a></td>
+                            <td @click="deleteProd(prod.id)" class="center"><i class="fa fa-trash-o  fa-fw"></i> Delete</td>
                             <td class="center"><i class="fa fa-pencil fa-fw"></i><router-link :to="'/product/'+prod.id+'/update'">Edit</router-link></td>
                         </tr>
                     </tbody>
@@ -45,22 +46,42 @@
 </template>
 
 <script>
-    export default{
-        data(){
-            return{
-                product:{},
-            }
+export default{
+    data(){
+        return{
+            product:{},
+        }
+    },
+    created(){
+        this.fetchProd();
+    },
+    methods:{
+        fetchProd(){
+            this.$http.get('/CustomProd/').then(response=>{
+                this.product = response.data.values;
+                console.log(response.data);
+            })
         },
-        created(){
-            this.fetchProd();
-        },
-        methods:{
-            fetchProd(){
-                this.$http.get('/CustomProd').then(response=>{
-                    this.product = response.data.values;
-                    console.log(response.data);
-                })
+        deleteProd(prod){
+            swal({
+              title: "Are you sure?",
+              text: "Once deleted, you will not be able to recover this imaginary file!",
+              icon: "warning",
+              buttons: true,
+              dangerMode: true,
+          })
+            .then((willDelete) => {
+              if (willDelete) {
+                this.$http.delete('/CustomProd/'+prod).then(response=>{
+                  let index = this.product.indexOf(prod);
+                  this.product.splice(index,1);
+                  swal("Poof! Your imaginary file has been deleted!", {
+                      icon: "success",
+                  })
+              });
             }
+        });
         }
     }
+}
 </script>

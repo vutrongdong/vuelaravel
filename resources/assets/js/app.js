@@ -20,7 +20,7 @@
  import Router from './router/router.js';
  import VeeValidate from 'vee-validate';
  import Notifications from 'vue-notification'
-
+ import Sweetalert from 'sweetalert';
 /*
 or for SSR:
 import Notifications from 'vue-notification/dist/ssr.js'

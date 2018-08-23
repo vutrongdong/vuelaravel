@@ -12,7 +12,7 @@ export default [
         component:AddPro
     },
     {
-        path: '/product/:id/update',
+        path: '/product/:idpro/update',
         component: EditPro
     }
 ];

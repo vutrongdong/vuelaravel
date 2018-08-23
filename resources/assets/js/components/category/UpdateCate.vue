@@ -42,9 +42,20 @@ export default{
             this.$http.put('CustomCate/'+ this.$route.params.idcate,this.category).then(response=>{
                 console.log(response.data);
                 this.$router.push('/category');
+                this.$notify({
+                  group: 'foo',
+                  title: 'thông báo',
+                  text: 'Sửa thành công',
+                  type:'success'
+              });
             }
             );
         }
     }
 }
 </script>
+<style>
+.success{
+    border-radius: 10px;
+}
+</style>

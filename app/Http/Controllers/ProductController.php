@@ -32,6 +32,7 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
+		$data = $request->except('image');
 		$exploded = explode(',', $request->image);
 		$decoded = base64_decode($exploded[1]); //mã hóa kí tự
 		if (str_contains($exploded[0], 'jpeg')) {
@@ -44,8 +45,14 @@ class ProductController extends Controller {
 		file_put_contents($path, $decoded);
 		$data['image'] = $fileName;
 		$data['slug'] = str_slug($request->name);
-		$prod = Product::create($data);
+		// $prod = Product::create($data);
+		$prod = $this->prod->Create($data);
 		return $prod;
+	}
+
+	public function edit($id) {
+		$values = $this->prod->getById($id);
+		return response()->json(['values' => $values]);
 	}
 
 	/**
@@ -56,6 +63,7 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
+		// $data = $request->except('image');
 		$exploded = explode(',', $request->image);
 		$decoded = base64_decode($exploded[1]); //mã hóa kí tự
 		if (str_contains($exploded[0], 'jpeg')) {
@@ -68,9 +76,10 @@ class ProductController extends Controller {
 		file_put_contents($path, $decoded);
 		$data['image'] = $fileName;
 		$data['slug'] = str_slug($request->name);
-		$prod = $this->prod->Update($id, $prod);
-
-		return response()->json(['prod_id' => $prod]);
+		$prod = $this->prod->Update($id, $request->except('image') + $data);
+		// $prod = Product::update($data);
+		// return $prod;
+		//
 	}
 
 	/**
@@ -79,7 +88,7 @@ class ProductController extends Controller {
 	 * @param  \App\Product  $product
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Product $product) {
-		//
+	public function destroy($id) {
+		$deletes = $this->prod->Destroy($id);
 	}
 }

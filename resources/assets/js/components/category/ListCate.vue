@@ -37,7 +37,6 @@
 
 <script>
 import axios from 'axios';
-import Sweetalert from 'sweetalert';
 export default{
     data(){
         return {
