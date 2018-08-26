@@ -13,9 +13,9 @@
             </div>
             <div class="form-group">
                 <label>parrent category</label><br>
-                <select v-model="product.cate_id" name="cate_id" v-validate="'required'">
-                    <option disabled="">parrent category</option>
-                    <option  :value="cate.id" v-for='cate in category'>{{ cate.name }}</option>
+                <select class="form-control" v-model="product.cate_id" name="cate_id" v-validate="'required'">
+                    <option :value="null">Parrent Category</option>
+                    <option  :value="cate.id" v-for='cate in category' style="color:red">{{ cate.name }}</option>
                 </select>
                 <span v-show="errors.has('cate_id')" style="color:red">*{{ errors.first('cate_id') }}</span>
             </div>
@@ -26,8 +26,8 @@
             </div>
             <div class="form-group">
                 <label>Images</label>
-                <input @change="imageChanged" type="file" name="image" v-validate="'required'"><br>
-                <img width="200px" v-show="this.type!=='create'" :src="'upload/' + product.image" alt="">
+                <input @change="imageChanged" type="file" name="image"><br>
+                <img width="200px" v-if="product.image" :src="'upload/' + product.image" alt="">
                 <span v-show="errors.has('image')" style="color:red">*{{ errors.first('image') }}</span>
 
             </div>
@@ -43,7 +43,7 @@
             <div class="form-group">
                 <label>Status</label>
                 <label class="radio-inline">
-                    <input v-model="product.status" name="status" value="1" checked="checked" type="radio">Mới
+                    <input v-model="product.status" name="status" value="1" type="radio">Mới
                 </label>
                 <label class="radio-inline">
                     <input v-model="product.status" name="status" value="2" type="radio">Cũ
@@ -65,7 +65,7 @@ export default{
 
         }
     },
-    props:['category','product','type','productOld'],
+    props: ['category','product','type'],
     methods:{
         imageChanged(e){
             console.log(e.target.files[0]);
@@ -74,8 +74,9 @@ export default{
             fileReader.readAsDataURL(e.target.files[0])
 
             fileReader.onload =(e) =>{
-                this.product.image = e.target.result
+                this.product.image = e.target.result;
             }
+
         },
         formSubmit(){
             this.$validator.validate().then(result=>{

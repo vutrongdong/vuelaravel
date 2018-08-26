@@ -38,6 +38,7 @@ class ComposerStaticInit20fbe0cffb37af5eebaf88c342960487
         ),
         'Z' => 
         array (
+            'Zizaco\\Entrust\\' => 15,
             'Zend\\Diactoros\\' => 15,
         ),
         'X' => 
@@ -157,6 +158,10 @@ class ComposerStaticInit20fbe0cffb37af5eebaf88c342960487
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'Zizaco\\Entrust\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust',
         ),
         'Zend\\Diactoros\\' => 
         array (
@@ -429,6 +434,8 @@ class ComposerStaticInit20fbe0cffb37af5eebaf88c342960487
         'App\\Http\\Controllers\\CateController' => __DIR__ . '/../..' . '/app/Http/Controllers/CateController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\ProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProductController.php',
+        'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
+        'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -446,10 +453,14 @@ class ComposerStaticInit20fbe0cffb37af5eebaf88c342960487
         'App\\Repository\\BaseRepository' => __DIR__ . '/../..' . '/app/Repository/BaseRepository.php',
         'App\\Repository\\Category\\Category' => __DIR__ . '/../..' . '/app/Repository/Category/Category.php',
         'App\\Repository\\Category\\CategoryRepository' => __DIR__ . '/../..' . '/app/Repository/Category/CategoryRepository.php',
+        'App\\Repository\\Permission\\Permission' => __DIR__ . '/../..' . '/app/Repository/Permission/Permission.php',
         'App\\Repository\\Product\\Product' => __DIR__ . '/../..' . '/app/Repository/Product/Product.php',
         'App\\Repository\\Product\\ProductRepository' => __DIR__ . '/../..' . '/app/Repository/Product/ProductRepository.php',
         'App\\Repository\\RepositoryInterface' => __DIR__ . '/../..' . '/app/Repository/RepositoryInterface.php',
-        'App\\User' => __DIR__ . '/../..' . '/app/User.php',
+        'App\\Repository\\Role\\Role' => __DIR__ . '/../..' . '/app/Repository/Role/Role.php',
+        'App\\Repository\\Role\\RoleRepository' => __DIR__ . '/../..' . '/app/Repository/Role/RoleRepository.php',
+        'App\\Repository\\Users\\User' => __DIR__ . '/../..' . '/app/Repository/Users/User.php',
+        'App\\Repository\\Users\\UserRepository' => __DIR__ . '/../..' . '/app/Repository/Users/UserRepository.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/Asm89/Stack/CorsService.php',
         'Barryvdh\\Cors\\HandleCors' => __DIR__ . '/..' . '/barryvdh/laravel-cors/src/HandleCors.php',
@@ -2830,6 +2841,7 @@ class ComposerStaticInit20fbe0cffb37af5eebaf88c342960487
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'Parsedown' => __DIR__ . '/..' . '/erusev/parsedown/Parsedown.php',
+        'PermissionTableSeeder' => __DIR__ . '/../..' . '/database/seeds/PermissionTableSeeder.php',
         'PharIo\\Manifest\\Application' => __DIR__ . '/..' . '/phar-io/manifest/src/values/Application.php',
         'PharIo\\Manifest\\ApplicationName' => __DIR__ . '/..' . '/phar-io/manifest/src/values/ApplicationName.php',
         'PharIo\\Manifest\\Author' => __DIR__ . '/..' . '/phar-io/manifest/src/values/Author.php',
@@ -4160,6 +4172,21 @@ class ComposerStaticInit20fbe0cffb37af5eebaf88c342960487
         'Zend\\Diactoros\\Stream' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/Stream.php',
         'Zend\\Diactoros\\UploadedFile' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/UploadedFile.php',
         'Zend\\Diactoros\\Uri' => __DIR__ . '/..' . '/zendframework/zend-diactoros/src/Uri.php',
+        'Zizaco\\Entrust\\Contracts\\EntrustPermissionInterface' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Contracts/EntrustPermissionInterface.php',
+        'Zizaco\\Entrust\\Contracts\\EntrustRoleInterface' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Contracts/EntrustRoleInterface.php',
+        'Zizaco\\Entrust\\Contracts\\EntrustUserInterface' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Contracts/EntrustUserInterface.php',
+        'Zizaco\\Entrust\\Entrust' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Entrust.php',
+        'Zizaco\\Entrust\\EntrustFacade' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustFacade.php',
+        'Zizaco\\Entrust\\EntrustPermission' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustPermission.php',
+        'Zizaco\\Entrust\\EntrustRole' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustRole.php',
+        'Zizaco\\Entrust\\EntrustServiceProvider' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/EntrustServiceProvider.php',
+        'Zizaco\\Entrust\\Middleware\\EntrustAbility' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Middleware/EntrustAbility.php',
+        'Zizaco\\Entrust\\Middleware\\EntrustPermission' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Middleware/EntrustPermission.php',
+        'Zizaco\\Entrust\\Middleware\\EntrustRole' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Middleware/EntrustRole.php',
+        'Zizaco\\Entrust\\MigrationCommand' => __DIR__ . '/..' . '/zizaco/entrust/src/commands/MigrationCommand.php',
+        'Zizaco\\Entrust\\Traits\\EntrustPermissionTrait' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Traits/EntrustPermissionTrait.php',
+        'Zizaco\\Entrust\\Traits\\EntrustRoleTrait' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Traits/EntrustRoleTrait.php',
+        'Zizaco\\Entrust\\Traits\\EntrustUserTrait' => __DIR__ . '/..' . '/zizaco/entrust/src/Entrust/Traits/EntrustUserTrait.php',
         'categories' => __DIR__ . '/../..' . '/database/seeds/categories.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
@@ -4253,6 +4280,8 @@ class ComposerStaticInit20fbe0cffb37af5eebaf88c342960487
         'phpseclib\\Net\\SSH2' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Net/SSH2.php',
         'phpseclib\\System\\SSH\\Agent' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/System/SSH/Agent.php',
         'phpseclib\\System\\SSH\\Agent\\Identity' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/System/SSH/Agent/Identity.php',
+        'roleSeeder' => __DIR__ . '/../..' . '/database/seeds/roleSeeder.php',
+        'user' => __DIR__ . '/../..' . '/database/seeds/user.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

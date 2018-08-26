@@ -1,6 +1,6 @@
 <template>
- <!-- Navigation -->
- <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+   <!-- Navigation -->
+   <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -74,13 +74,25 @@
                     <!-- /.nav-second-level -->
                 </li>
                 <li>
+                    <a href="#"><i class="fa fa-cube fa-fw"></i>Role<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <router-link to="/role">List Role</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/role/create">Add Role</router-link>
+                        </li>
+                    </ul>
+                    <!-- /.nav-second-level -->
+                </li>
+                <li>
                     <a href="#"><i class="fa fa-users fa-fw"></i> User<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">List User</a>
+                            <router-link :to="{name:'ListUser'}">List User</router-link>
                         </li>
                         <li>
-                            <a href="#">Add User</a>
+                            <router-link :to="{name:'AddUser'}">Add User</router-link>
                         </li>
                     </ul>
                     <!-- /.nav-second-level -->

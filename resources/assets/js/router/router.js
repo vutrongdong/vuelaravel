@@ -1,19 +1,21 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Product from './product.js';
 import Login from '../authentication/login.vue';
 import Register from '../authentication/register.vue';
 import Category from '../components/category/ListCate.vue';
 import CateAdd from '../components/category/AddCate.vue';
 import CateUpdate from '../components/category/UpdateCate.vue';
-import Index from '../components/index.vue';
+import Product from './product.js';
+import Role from './role.js';
+import User from './user.js';
 Vue.use(VueRouter);
 
 const router  = new VueRouter({
- // mode: 'history',
- // base:'dong/',
+// mode:'history',
  routes:[
  ...Product,
+ ...Role,
+ ...User,
  {
     path: '/login',
     component: Login
@@ -33,10 +35,6 @@ const router  = new VueRouter({
 {
     path: '/category/:idcate/update',
     component: CateUpdate
-},
-{
-    path: '/',
-    component: Index
 }
 ]
 })

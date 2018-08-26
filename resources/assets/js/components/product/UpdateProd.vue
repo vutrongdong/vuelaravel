@@ -7,7 +7,7 @@
                         <small>Edit</small>
                     </h1>
                 </div>
-                <FormUpdate @submit="Update()" v-bind:category="category,product,productOld"></FormUpdate>
+                <FormUpdate @submit="Update()" v-bind:category="category,product"></FormUpdate>
             </div>
             <!-- /.row -->
         </div>
@@ -22,7 +22,6 @@ export default{
         return{
             category:[],
             product:{},
-            productOld:{}
         }
     },
     created(){
@@ -39,14 +38,11 @@ export default{
 
         fetchProd(){
             this.$http.get('/CustomProd/'+this.$route.params.idpro+'/edit').then(response=>{
-                this.product = response.data.values;
-                // console.log(response.data.values);
+                this.product = response.data.values
             })
         },
         Update(){
             this.$http.put('/CustomProd/'+this.$route.params.idpro,this.product).then(response=>{
-                console.log(this.product);
-                console.log(response.data);
                 this.$router.push('/product');
                 this.$notify({
                   group: 'foo',

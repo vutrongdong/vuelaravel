@@ -11,18 +11,17 @@
 |
  */
 
-Route::get('/', function () {
+Route::get('/admin', function () {
 	return view('app');
 });
-
-Route::get('/test', function () {
-	return response()->json([
-		"name" => 'vu trong dong',
-		'password' => '123456',
-	]);
+Route::get('/login', function () {
+	return view('authen.login');
 });
-
 Route::resource('/CustomCate', 'CateController');
 Route::resource('/CustomProd', 'ProductController');
-
+Route::resource('/Role', 'RoleController');
+Route::resource('/User', 'UserController');
+// Route::get('/{vue_capture?}', function () {
+// 	return view('app');
+// })->where('vue_capture', '[\/\w\.-]*');
 ?>

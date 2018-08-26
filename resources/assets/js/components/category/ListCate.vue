@@ -24,7 +24,7 @@
                             <td>{{ cate.name }}</td>
                             <td>{{ cate.slug }}</td>
                             <td @click="deletCate(cate.id)" class="center"><i class="fa fa-trash-o  fa-fw"></i> Delete</td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <router-link :to="'/category/'+cate.id+'/update'">Edit</router-link></td>
+                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <router-link :to="'/category/'+ cate.id+'/update'">Edit</router-link></td>
                         </tr>
                     </tbody>
                 </table>

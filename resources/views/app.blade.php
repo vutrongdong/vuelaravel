@@ -7,6 +7,7 @@
     <meta name="description" content="Khóa Học Lập Trình Laravel Framework 5.x Tại Khoa Phạm">
     <meta name="author" content="">
     <title>Admin</title>
+
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Bootstrap Core CSS -->
     <link href="backend/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -33,11 +34,11 @@
 
     <div id="app">
 
-        <App></App>
+        <app></app>
 
     </div>
     <!-- /#wrapper -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
     <!-- jQuery -->
     <script src="backend/bower_components/jquery/dist/jquery.min.js"></script>
 

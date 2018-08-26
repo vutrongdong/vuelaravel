@@ -41,7 +41,7 @@ class ProductController extends Controller {
 			$extension = 'png';
 		}
 		$fileName = str_random(8) . '.' . $extension;
-		$path = public_path() . '/upload/' . $fileName;
+		$path = public_path() . '/upload/product' . $fileName;
 		file_put_contents($path, $decoded);
 		$data['image'] = $fileName;
 		$data['slug'] = str_slug($request->name);
@@ -63,25 +63,27 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
-		// $data = $request->except('image');
 		$exploded = explode(',', $request->image);
-		$decoded = base64_decode($exploded[1]); //mã hóa kí tự
-		if (str_contains($exploded[0], 'jpeg')) {
-			$extension = 'jpg';
+		if (count($exploded) > 1) {
+			$decoded = base64_decode($exploded[1]); //mã hóa kí tự
+			if (str_contains($exploded[0], 'jpeg')) {
+				$extension = 'jpg';
+			} else {
+				$extension = 'png';
+			}
+			$fileName = str_random(8) . '.' . $extension;
+			$path = public_path() . '/upload/product/' . $fileName;
+			file_put_contents($path, $decoded);
+			//tiến hành xóa ảnh cũ
+			$path_old = $this->prod->getById($id);
+			unlink('upload/product/' . $path_old->image);
 		} else {
-			$extension = 'png';
+			$fileName = $request->image;
 		}
-		$fileName = str_random(8) . '.' . $extension;
-		$path = public_path() . '/upload/' . $fileName;
-		file_put_contents($path, $decoded);
 		$data['image'] = $fileName;
 		$data['slug'] = str_slug($request->name);
 		$prod = $this->prod->Update($id, $request->except('image') + $data);
-		// $prod = Product::update($data);
-		// return $prod;
-		//
 	}
-
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -90,5 +92,6 @@ class ProductController extends Controller {
 	 */
 	public function destroy($id) {
 		$deletes = $this->prod->Destroy($id);
+		// return $deletes;
 	}
 }
