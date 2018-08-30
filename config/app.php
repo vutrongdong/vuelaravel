@@ -156,7 +156,7 @@ return [
 		/*
 			         * Application Service Providers...
 		*/
-		Zizaco\Entrust\EntrustServiceProvider::class,
+		// Zizaco\Entrust\EntrustServiceProvider::class,
 		App\Providers\AppServiceProvider::class,
 		App\Providers\AuthServiceProvider::class,
 		// App\Providers\BroadcastServiceProvider::class,
@@ -212,7 +212,7 @@ return [
 		'Validator' => Illuminate\Support\Facades\Validator::class,
 		'View' => Illuminate\Support\Facades\View::class,
 		'Image' => Intervention\Image\Facades\Image::class,
-		'Entrust' => Zizaco\Entrust\EntrustFacade::class,
+		// 'Entrust' => Zizaco\Entrust\EntrustFacade::class,
 
 	],
 

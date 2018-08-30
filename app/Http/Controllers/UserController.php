@@ -28,19 +28,20 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$data = $request->except('image', 'password');
-		$exploded = explode(',', $request->image);
+		// $data = $request->except('image', 'password');
+		// $exploded = explode(',', $request->image);
 
-		$decoded = base64_decode($exploded[1]); //mã hóa kí tự
-		if (str_contains($exploded[0], 'jpeg')) {
-			$extension = 'jpg';
-		} else {
-			$extension = 'png';
-		}
-		$fileName = str_random(8) . '.' . $extension;
-		$path = public_path() . '/upload/user/' . $fileName;
-		file_put_contents($path, $decoded);
-		$data['image'] = $fileName;
+		// $decoded = base64_decode($exploded[1]); //mã hóa kí tự
+		// if (str_contains($exploded[0], 'jpeg')) {
+		// 	$extension = 'jpg';
+		// } else {
+		// 	$extension = 'png';
+		// }
+		// $fileName = str_random(8) . '.' . $extension;
+		// $path = public_path() . '/upload/user/' . $fileName;
+		// file_put_contents($path, $decoded);
+		// $data['image'] = $fileName;
+		$data = $request->except('password'); //
 		$data['password'] = bcrypt($request->passwpord);
 		$user = $this->user->Create($data);
 		// dd('them thanh cong');
@@ -108,4 +109,5 @@ class UserController extends Controller {
 	public function destroy($id) {
 		$delete = $this->user->Destroy($id);
 	}
+
 }

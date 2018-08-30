@@ -10,18 +10,20 @@
 | contains the "web" middleware group. Now create something great!
 |
  */
+Auth::routes();
 
-Route::get('/admin', function () {
-	return view('app');
-});
-Route::get('/login', function () {
-	return view('authen.login');
-});
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/admin', 'HomeController@index');
+Route::post('/login', 'LoginController@Login');
+Route::get('/logout', 'LoginController@Logout');
+Route::get('/posts/{id}', 'PostController@show');
+
 Route::resource('/CustomCate', 'CateController');
 Route::resource('/CustomProd', 'ProductController');
 Route::resource('/Role', 'RoleController');
 Route::resource('/User', 'UserController');
-// Route::get('/{vue_capture?}', function () {
-// 	return view('app');
-// })->where('vue_capture', '[\/\w\.-]*');
+Route::get('/{vue_capture?}', function () {
+	return view('app');
+})->where('vue_capture', '[\/\w\.-]*');
 ?>

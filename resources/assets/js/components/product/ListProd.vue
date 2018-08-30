@@ -29,7 +29,7 @@
                             <td>{{ prod.price }}</td>
                             <td>{{ prod.promotion }}</td>
                             <!-- :src="'upload/'+prod.image" -->
-                            <td><img :src="'upload/'+prod.image" width="100px" alt=""></td>
+                            <td><img :src="'upload/product/'+prod.image" width="100px" alt=""></td>
                             <td>{{ prod.quantity }}</td>
                             <td v-if='prod.status==1'>Mới</td>
                             <td v-else>Cũ</td>
@@ -74,6 +74,7 @@ export default{
               if (willDelete) {
                 axios.delete('/CustomProd/'+prod).then(response=>{
                   this.product.splice(index,1);
+
                   swal("Poof! Your imaginary file has been deleted!", {
                       icon: "success",
                   })

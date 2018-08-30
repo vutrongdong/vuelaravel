@@ -28,7 +28,7 @@ export default{
     components:{FormCreate},
     methods:{
         Create(){
-            this.$http.post('/User',this.users).then(response=>{
+            axios.post('/User',this.users).then(response=>{
                 this.$router.push('/users');
                 this.$notify({
                   group: 'foo',

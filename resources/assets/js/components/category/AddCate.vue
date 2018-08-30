@@ -9,7 +9,7 @@
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <Form @submit="Create()" v-bind:category="category,type"></Form>
+                        <Form @submit="Create" :category="category" :type="type"></Form>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -20,30 +20,34 @@
 </template>
 
 <script>
-import Notifications from 'vue-notification'
 import Form from './FormCate.vue';
+import { mapActions } from 'vuex'
 export default{
     data(){
         return{
             category:{},
-            // errors:[],
             type:'create'
         };
     },
+    mounted(){
+        this.FetchCate();
+    },
     components:{Form},
     methods:{
-        Create(){
-            this.$http.post('/CustomCate',this.category).then(response=>
-            {
-
-                this.$router.push('/category');
-                this.$notify({
-                  group: 'foo',
-                  title: 'thông báo',
-                  text: 'Thêm thành công',
-                  type:'success'
-              });
-            });
+        ...mapActions(['pushCate','FetchCate']),
+        Create(category){
+            this.pushCate({
+                category:category,
+                cb:()=>{
+                    this.$router.push('/category');
+                    this.$notify({
+                      group: 'foo',
+                      title: 'thông báo',
+                      text: 'Thêm thành công',
+                      type:'success'
+                  });
+                }
+            })
         }
     }
 }

@@ -41,7 +41,7 @@ class ProductController extends Controller {
 			$extension = 'png';
 		}
 		$fileName = str_random(8) . '.' . $extension;
-		$path = public_path() . '/upload/product' . $fileName;
+		$path = public_path() . '/upload/product/' . $fileName;
 		file_put_contents($path, $decoded);
 		$data['image'] = $fileName;
 		$data['slug'] = str_slug($request->name);

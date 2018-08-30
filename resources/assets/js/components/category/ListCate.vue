@@ -19,11 +19,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(cate,i) in Category" class="odd gradeX" align="center">
+                        <tr v-for="(cate,i) in allCate" class="odd gradeX" align="center">
                             <td>{{ ++i }}</td>
                             <td>{{ cate.name }}</td>
                             <td>{{ cate.slug }}</td>
-                            <td @click="deletCate(cate.id)" class="center"><i class="fa fa-trash-o  fa-fw"></i> Delete</td>
+                            <td @click="deletCate(cate.id,--i)" class="center"><i class="fa fa-trash-o  fa-fw"></i> Delete</td>
                             <td class="center"><i class="fa fa-pencil fa-fw"></i> <router-link :to="'/category/'+ cate.id+'/update'">Edit</router-link></td>
                         </tr>
                     </tbody>
@@ -36,43 +36,36 @@
 </template>
 
 <script>
-import axios from 'axios';
+import { mapGetters,mapActions } from 'vuex'
 export default{
-    data(){
-        return {
-            Category:[],
-            url:'/CustomCate/'
-        }
+    computed:{
+        ...mapGetters(['allCate']),
     },
-    created(){
-        this.CustomCate();
+    mounted(){
+        this.FetchCate();
     },
     methods:{
-        CustomCate(){
-            axios.get('/CustomCate/').then(response=>{
-                console.log(response.data);
-                this.Category = response.data.values;
-            })
-        },
-        deletCate(cate){
+        ...mapActions(['FetchCate','actionDelete']),
+        deletCate(cate,index){
             swal({
-              title: "Are you sure?",
-              text: "Once deleted, you will not be able to recover this imaginary file!",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-          })
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
             .then((willDelete) => {
-              if (willDelete) {
-                this.$http.delete(this.url+cate).then(response=>{
-                  let index = this.Category.indexOf(cate);
-                  this.Category.splice(index,1);
-                  swal("Poof! Your imaginary file has been deleted!", {
-                      icon: "success",
+                if (willDelete) {
+                    this.actionDelete({
+                        cate:cate,
+                        cb:()=>{
+                          swal("Poof! Your imaginary file has been deleted!", {
+                            icon: "success",
+                        })
+                      }
                   })
-              });
-            }
-        });
+                }
+            });
         }
     }
 }

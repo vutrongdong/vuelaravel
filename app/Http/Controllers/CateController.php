@@ -20,7 +20,7 @@ class CateController extends Controller {
 
 	public function index() {
 		$values = $this->cate->getAll();
-
+		// $this->authorize($values, 'view');
 		return response()->json(['values' => $values]);
 	}
 
@@ -78,7 +78,7 @@ class CateController extends Controller {
 		$data = $request->all();
 		$data['slug'] = str_slug($request->name);
 		$category = $this->cate->Update($id, $data);
-		return response()->json(["edits" => $category, 'message' => 'edit seccess']);
+		return response()->json(["edits" => $category, 'message' => 'edit success']);
 	}
 
 	/**
@@ -89,6 +89,7 @@ class CateController extends Controller {
 	 */
 	public function destroy($id) {
 		$deletes = $this->cate->Destroy($id);
-		return response()->json(['deletes' => $deletes, 'message' => 'delete succes']);
+		// $deletes =
+		return response()->json(['deletes' => $deletes]);
 	}
 }

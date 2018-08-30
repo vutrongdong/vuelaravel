@@ -16,7 +16,7 @@
             <label>RePassword</label>
             <input v-model="users.repass" type="password" class="form-control" name="repass" placeholder="Please Enter RePassword" />
         </div> -->
-        <div class="form-group">
+ <!--        <div class="form-group">
             <label>Image</label>
             <input @change="ChangeImage" type="file" class="form-control" name="image" /><br>
             <img v-show="this.type!=='create'" width='100px' :src="'upload/user/'+ users.image" alt="">
@@ -39,7 +39,7 @@
             <label class="radio-inline">
                 <input v-model="users.level" name="level" value="2" type="radio">Member
             </label>
-        </div>
+        </div> -->
         <button type="submit" class="btn btn-success"><span v-if="this.type==='create'">User Add</span ><span v-else>User Edit</span></button>
         <button type="reset" class="btn btn-primary">Reset</button>
     </form>

@@ -2,7 +2,7 @@
     <form @submit.prevent="formSubmit" method="post">
         <div class="form-group">
             <label>Category Name</label>
-            <input v-model="category.name" class="form-control" name="name" placeholder="Please Enter Category Name" v-validate="'required|min:3|max:10'" />
+            <input v-model="category.name" class="form-control" name="name" placeholder="Please Enter Category Name" v-validate="'required|min:3|max:32'" />
             <!-- max_value và min_value được sử dụng trong trường hợp đo gía trị số -->
             <div v-show="errors.has('name')" class="text-danger">{{ errors.first('name') }}</div>
             <!-- <p style="color:red;" v-if="errors.name">{{ errors.name[0] }}</p> -->
@@ -31,7 +31,7 @@ export default{
                     this.$notify({
                       group: 'foo',
                       title: 'Cảnh báo !',
-                      text: 'Thông tin nhập không chính xác!',
+                      text: 'Thông tin nhập không không hợp lệ!',
                       type:'error'
                   });
                 }

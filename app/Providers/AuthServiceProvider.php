@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
+use Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider {
 	/**
@@ -12,7 +12,8 @@ class AuthServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $policies = [
-		'App\Model' => 'App\Policies\ModelPolicy',
+		// App\Repository\Category\Category::class => App\Policies\CatePolicy::class,
+		\App\Post::class => \App\Policies\PostPolicy::class,
 	];
 
 	/**
@@ -22,7 +23,8 @@ class AuthServiceProvider extends ServiceProvider {
 	 */
 	public function boot() {
 		$this->registerPolicies();
-
-		Passport::routes();
+		Gate::define('edit-user', function ($user) {
+			return true;
+		});
 	}
 }
