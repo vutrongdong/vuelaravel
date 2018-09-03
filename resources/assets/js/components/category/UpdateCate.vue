@@ -8,7 +8,7 @@
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="col-lg-7" style="padding-bottom:120px">
-                        <Form @submit="Update"  v-bind:category="category"></Form>
+                        <Form @submit="Update"  :category="category"></Form>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -20,25 +20,21 @@
 
 <script>
 import Form from './FormCate.vue';
-import { mapActions } from 'vuex'
+import { mapActions,mapGetters } from 'vuex'
 export default{
-    data(){
-        return{
-            category:{
-            }
-        }
+    computed:{
+        ...mapGetters(['category'])
     },
     components:{Form},
     created(){
         this.getCategory();
     },
     methods:{
-        ...mapActions(['pushCate']),
-        getCategory(){
-            this.$http.get('CustomCate/'+ this.$route.params.idcate+'/edit').then(response =>{
-                this.category = response.data.values;
-                console.log(response.data);
-            })
+        ...mapActions(['pushCate','FetchCateForEdit']),
+        getCategory(id){
+            this.FetchCateForEdit({
+                id:this.$route.params.idcate
+            });
         },
         Update(category){
             this.pushCate({

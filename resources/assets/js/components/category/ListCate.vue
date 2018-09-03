@@ -23,7 +23,7 @@
                             <td>{{ ++i }}</td>
                             <td>{{ cate.name }}</td>
                             <td>{{ cate.slug }}</td>
-                            <td @click="deletCate(cate.id,--i)" class="center"><i class="fa fa-trash-o  fa-fw"></i> Delete</td>
+                            <td @click="deletCate(cate.id)" class="center"><i class="fa fa-trash-o  fa-fw"></i> Delete</td>
                             <td class="center"><i class="fa fa-pencil fa-fw"></i> <router-link :to="'/category/'+ cate.id+'/update'">Edit</router-link></td>
                         </tr>
                     </tbody>
@@ -36,6 +36,7 @@
 </template>
 
 <script>
+
 import { mapGetters,mapActions } from 'vuex'
 export default{
     computed:{
@@ -46,7 +47,7 @@ export default{
     },
     methods:{
         ...mapActions(['FetchCate','actionDelete']),
-        deletCate(cate,index){
+        deletCate(cate){
             swal({
                 title: "Are you sure?",
                 text: "Once deleted, you will not be able to recover this imaginary file!",

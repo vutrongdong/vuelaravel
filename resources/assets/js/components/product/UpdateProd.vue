@@ -7,7 +7,7 @@
                         <small>Edit</small>
                     </h1>
                 </div>
-                <FormUpdate @submit="Update()" v-bind:category="category,product"></FormUpdate>
+                <FormUpdate v-if="product.id" @submit="Update" :data-prod="product"></FormUpdate>
             </div>
             <!-- /.row -->
         </div>
@@ -16,43 +16,53 @@
 </template>
 <script>
 import FormUpdate from './FormProd.vue';
+import { mapActions,mapGetters } from 'vuex'
 export default{
-    components:{FormUpdate},
     data(){
-        return{
-            category:[],
+        return {
             product:{},
         }
     },
-    created(){
-        this.fetchProd();
-        this.fetchCate();
+    components:{FormUpdate},
+    computed:{
+        ...mapGetters(['CateForEditProd']),
     },
     methods:{
-        fetchCate(){
-            this.$http.get('/CustomProd').then(response=>{
-                this.category =response.data.category;
-                // console.log(response.data.category);
+        ...mapActions(['FetProdForEdit','pushProduct']),
+        fetchProd(id){
+            this.FetProdForEdit({
+                id:this.$route.params.idpro,
+                cb:(product)=>{
+                    this.product = Object.assign({},this.product,product)
+                }
             })
         },
 
-        fetchProd(){
-            this.$http.get('/CustomProd/'+this.$route.params.idpro+'/edit').then(response=>{
-                this.product = response.data.values
-            })
-        },
-        Update(){
-            this.$http.put('/CustomProd/'+this.$route.params.idpro,this.product).then(response=>{
-                this.$router.push('/product');
-                this.$notify({
-                  group: 'foo',
-                  title: 'thông báo',
-                  text: 'Sửa thành công',
-                  type:'success'
-              });
+        Update(product){
+            this.pushProduct({
+                product:product,
+                cb:()=>{
+                    this.$router.push('/product');
+                    this.$notify({
+                      group: 'foo',
+                      title: 'thông báo',
+                      text: 'Sửa thành công',
+                      type:'success'
+                  })
+                }
             })
         }
-    }
+    },
+    mounted(){
+        this.fetchProd();
+        this.FetProdForEdit({
+            id:this.$route.params.idpro,
+            cb:(product)=>{
+                this.product = Object.assign({},
+                    this.product,product)
+            }
+        })
+    },
 
 }
 </script>

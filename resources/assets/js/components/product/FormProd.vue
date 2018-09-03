@@ -13,9 +13,9 @@
             </div>
             <div class="form-group">
                 <label>parrent category</label><br>
-                <select class="form-control" v-model="product.cate_id" name="cate_id" v-validate="'required'">
-                    <option :value="null">Parrent Category</option>
-                    <option  :value="cate.id" v-for='cate in category' style="color:red">{{ cate.name }}</option>
+                <select class="form-control" name="cate_id" v-validate="'required'" v-model="product.cate_id">
+                    <option disabled="" value="Parrent Category">Parrent Category</option>
+                    <option  :value="cate.id" v-for='cate in category' style="color:red" :key="cate.id">{{ cate.name }}</option>
                 </select>
                 <span v-show="errors.has('cate_id')" style="color:red">*{{ errors.first('cate_id') }}</span>
             </div>
@@ -26,8 +26,10 @@
             </div>
             <div class="form-group">
                 <label>Images</label>
-                <input @change="imageChanged" type="file" name="image"><br>
-                <img width="200px" v-if="product.image" :src="'upload/' + product.image" alt="">
+                <!-- <input @change="imageChanged" type="file" name="image"><br> -->
+                <input @change="imageChanged" type='file' id="imgInp" /><br>
+                <img id="output" width="200px" v-if="dataProd.image" :src="'upload/product/' + dataProd.image" alt="">
+                <img id="output" v-else />
                 <span v-show="errors.has('image')" style="color:red">*{{ errors.first('image') }}</span>
 
             </div>
@@ -59,24 +61,68 @@
     </div>
 </template>
 <script>
+import { mapGetters,mapActions } from 'vuex'
 export default{
-    data(){
-        return{
 
+    data: function(){
+        return {
+            product:{
+                name:'',
+                slug:'',
+                price:'',
+                cate_id:'',
+                description:'',
+                image:'',
+                promotion:'',
+                quantity:'',
+                status:'',
+                warranty:'',
+            },
         }
     },
-    props: ['category','product','type'],
-    methods:{
-        imageChanged(e){
-            console.log(e.target.files[0]);
-            var fileReader = new FileReader();
-
-            fileReader.readAsDataURL(e.target.files[0])
-
-            fileReader.onload =(e) =>{
-                this.product.image = e.target.result;
+    computed:{
+        ...mapGetters(['allCate']),
+        category(){
+            return this.allCate
+        }
+    },
+    props: {
+        type: {
+            type: String,
+            default: 'edit'
+        },
+        dataProd: {
+            type: Object,
+            default: () => {
+                return {
+                    name:'',
+                    slug:'',
+                    price:'',
+                    cate_id:'',
+                    description:'',
+                    image:'',
+                    promotion:'',
+                    quantity:'',
+                    status:'',
+                    warranty:'',
+                }
             }
+        }
+    },
+    methods:{
+        ...mapActions(['pushProduct','FetchCate']),
+        imageChanged(event){
+            console.log(event.target.files[0].name);
+            // this.product.image = event.target.files[0].name;
+            var reader = new FileReader();
+            reader.onload = (e)=>{
+                // this.product.image = event.target.files[0].name;
+                this.product.image = e.target.result;
+                var output = document.getElementById('output');
+                output.src = reader.result;
 
+            };
+            reader.readAsDataURL(event.target.files[0]);
         },
         formSubmit(){
             this.$validator.validate().then(result=>{
@@ -86,6 +132,11 @@ export default{
                 }
             })
         }
-    }
+    },
+    mounted (){
+        this.FetchCate();
+        this.product = Object.assign({}, this.product, this.dataProd);
+    },
 }
 </script>
+

@@ -19,32 +19,46 @@
 import Notifications from 'vue-notification'
 
 export default{
-    props:['category','type'],
-    methods:{
-        formSubmit () {
-            this.$validator.validate().then(result => {
-                if (result) {
-                    let category = Object.assign({}, this.category)
-                    this.$emit('submit', category)
+    // props:['category','type'],
+    props: {
+        type: {
+            type: String,
+            default: 'edit'
+        },
+        category: {
+            type: Object,
+            default: () => {
+                return {
+                   name : ''
+               }
+           }
+       }
+   },
+   methods:{
+    formSubmit () {
+        this.$validator.validate().then(result => {
+            if (result) {
+                let category = Object.assign({}, this.category)
+                this.$emit('submit', category)
 
-                } else {
-                    this.$notify({
-                      group: 'foo',
-                      title: 'Cảnh báo !',
-                      text: 'Thông tin nhập không không hợp lệ!',
-                      type:'error'
-                  });
-                }
-            })
-        }
+            } else {
+                this.$notify({
+                  group: 'foo',
+                  title: 'Cảnh báo !',
+                  text: 'Thông tin nhập không không hợp lệ!',
+                  type:'error'
+              });
+            }
+        })
     }
+}
 }
 </script>
 
 <style scope>
-    .error{
-        color: #fff;
-        border-radius: 10px;
-        height: 60px;
-    }
+.error{
+    color: #fff;
+    border-radius: 10px;
+    height: 60px;
+}
 </style>

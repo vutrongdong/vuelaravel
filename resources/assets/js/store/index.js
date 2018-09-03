@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import ListCate from '../components/category/ListCate.vue'
-import storeCate from './modules/category.js'
-const debug = process.env.NODE_ENV !== 'production'
+import category from './modules/category.js'
+import product from './modules/product.js'
+
 import {
     FETCHING_RESOURCES,
     FETCHING_RESOURCES_DONE,
@@ -10,6 +10,7 @@ import {
 } from './mutation-type';
 
 Vue.use(Vuex)
+const debug = process.env.NODE_ENV !== 'production'
 
 const state = {
   iloading: false,
@@ -64,14 +65,13 @@ if (token) {
 }
 
 export default new Vuex.Store({
-    strict: debug,
+    // strict: debug,
     modules: {
-      storeCate
+      category,
+      product
     },
     state,
     actions,
     mutations,
      getters,
-// plugins: debug ? [createLogger()] : []
-    // state,
 });

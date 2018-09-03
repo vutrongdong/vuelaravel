@@ -6,6 +6,7 @@ use App\Repository\Category\Category;
 use App\Repository\Product\Product;
 use App\Repository\Product\ProductRepository;
 use Illuminate\Http\Request;
+use Image;
 
 class ProductController extends Controller {
 	/**
@@ -40,19 +41,17 @@ class ProductController extends Controller {
 		} else {
 			$extension = 'png';
 		}
-		$fileName = str_random(8) . '.' . $extension;
+		$fileName = date('Y-m-d-H:i:s') . "." . $extension;
 		$path = public_path() . '/upload/product/' . $fileName;
 		file_put_contents($path, $decoded);
 		$data['image'] = $fileName;
 		$data['slug'] = str_slug($request->name);
-		// $prod = Product::create($data);
 		$prod = $this->prod->Create($data);
-		return $prod;
 	}
 
 	public function edit($id) {
 		$values = $this->prod->getById($id);
-		return response()->json(['values' => $values]);
+		return response()->json($values);
 	}
 
 	/**
@@ -63,6 +62,7 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, $id) {
+		$data = $request->except('image');
 		$exploded = explode(',', $request->image);
 		if (count($exploded) > 1) {
 			$decoded = base64_decode($exploded[1]); //mã hóa kí tự
@@ -71,18 +71,18 @@ class ProductController extends Controller {
 			} else {
 				$extension = 'png';
 			}
-			$fileName = str_random(8) . '.' . $extension;
+			$fileName = date('Y-m-d-H:i:s') . "." . $extension;
 			$path = public_path() . '/upload/product/' . $fileName;
 			file_put_contents($path, $decoded);
 			//tiến hành xóa ảnh cũ
 			$path_old = $this->prod->getById($id);
-			unlink('upload/product/' . $path_old->image);
+			// unlink('upload/product/' . $path_old->image);
 		} else {
 			$fileName = $request->image;
 		}
 		$data['image'] = $fileName;
 		$data['slug'] = str_slug($request->name);
-		$prod = $this->prod->Update($id, $request->except('image') + $data);
+		$prod = $this->prod->Update($id, $data);
 	}
 	/**
 	 * Remove the specified resource from storage.

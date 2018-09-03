@@ -9,63 +9,67 @@ import {
 } from '../mutation-type'
 
 const state ={
-  category:[]
+  category:{},
+  cate:{}
 }
 
 const mutations = {
   [FETCH_CATEGORY](state,category){
     return state.category = category;
-  },
-  [FETCH_EDIT_CATE](state,category){
-    return state.category = category;
+},
+  [FETCH_EDIT_CATE](state,cate){
+      return state.cate = cate;
   },
   [DELETE_CATEGORY](state,id){
-    return state.category = state.category.filter((cate)=> cate.id !==id )
+      return state.category = state.category.filter((cate)=> cate.id !==id )
   }
 }
+
 const getters ={
   allCate: (state)=>state.category,
-  getCateById: (state)=>state.category
+  category: (state)=>state.cate
 }
 
 const actions ={
   async FetchCate({commit}){
      // if (this.getters.allCategories.length == 0)
-    let response = await axios.get('/CustomCate').then(response=>{
+     let response = await axios.get('/CustomCate').then(response=>{
       commit(FETCH_CATEGORY,response.data.values)
-    });
-  },
+  });
+ },
 
-  async FetchCateForEdit({commit},payload){
-    let response = await axios.get('/CustomCate').then(response=>{
+ async FetchCateForEdit({commit},payload){
+    const {id} = payload || {}
+    let response = await axios.get('/CustomCate/' + id +'/edit').then(response=>{
       commit(FETCH_EDIT_CATE,response.data.values)
-    })
-  },
+      console.log('/CustomCate/' + id +'/edit');
+  })
+},
 
-  async actionDelete({commit},payload){
+async actionDelete({commit},payload){
  const { cate,cb } = payload || {}
-    let response = await axios.delete('/CustomCate/'+cate).then(response=>{
-        commit(DELETE_CATEGORY,cate)
-    });
-  },
+ let response = await axios.delete('/CustomCate/' + cate).then(response=>{
+    commit(DELETE_CATEGORY,cate)
+});
+},
 
-  async pushCate({commit},payload){
+async pushCate({commit},payload){
     commit(FETCHING_RESOURCES)
     const { category,cb } = payload || {}
 
     try {
       if (category.id) {
-      let response =await axios.put('/CustomCate/'+category.id,category)
-      cb && cb(response.data.data)
-    }else{
-      let response =  await axios.post('/CustomCate',category)
-      cb && cb(response.data.data)
-    }
-    commit(FETCHING_RESOURCES_DONE)
+          let response = await axios.put('/CustomCate/'+category.id,category)
+          cb && cb(response.data.data)
+      }else{
+          let response =  await axios.post('/CustomCate',category)
+          cb && cb(response.data.data)
+      }
+      commit(FETCHING_RESOURCES_DONE)
   }catch (err) {
       commit(FETCHING_RESOURCES_FAIL, err)
-    }
   }
+}
 }
 
 export default{

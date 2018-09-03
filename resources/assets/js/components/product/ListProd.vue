@@ -23,7 +23,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(prod,i) in product" class="odd gradeX" align="center">
+                        <tr v-for="(prod,i) in allProduct" class="odd gradeX" align="center">
                             <td>{{ ++i }}</td>
                             <td>{{ prod.name }}</td>
                             <td>{{ prod.price }}</td>
@@ -33,7 +33,7 @@
                             <td>{{ prod.quantity }}</td>
                             <td v-if='prod.status==1'>Mới</td>
                             <td v-else>Cũ</td>
-                            <td @click="deleteProd(prod.id, --i)" class="center"><i class="fa fa-trash-o  fa-fw"></i> Delete</td>
+                            <td @click="deleteProd(prod.id)" class="center"><i class="fa fa-trash-o  fa-fw"></i> Delete</td>
                             <td class="center"><i class="fa fa-pencil fa-fw"></i><router-link :to="'/product/'+prod.id+'/update'">Edit</router-link></td>
                         </tr>
                     </tbody>
@@ -46,23 +46,17 @@
 </template>
 
 <script>
+import { mapGetters,mapActions } from 'vuex'
 export default{
-    data(){
-        return{
-            product:{},
-        }
-    },
     created(){
-        this.fetchProd();
+        this.actionFetchProduct();
+    },
+    computed:{
+        ...mapGetters(['allProduct'])
     },
     methods:{
-        fetchProd(){
-            axios.get('/CustomProd/').then(response=>{
-                this.product = response.data.values;
-                console.log(response.data);
-            })
-        },
-        deleteProd(prod, index){
+        ...mapActions(['actionFetchProduct','actionDeleteProd']),
+        deleteProd(prod){
             swal({
               title: "Are you sure?",
               text: "Once deleted, you will not be able to recover this imaginary file!",
@@ -72,13 +66,14 @@ export default{
           })
             .then((willDelete) => {
               if (willDelete) {
-                axios.delete('/CustomProd/'+prod).then(response=>{
-                  this.product.splice(index,1);
-
-                  swal("Poof! Your imaginary file has been deleted!", {
-                      icon: "success",
-                  })
-              });
+                this.actionDeleteProd({
+                   prod:prod,
+                    cb:()=>{
+                      swal("Poof! Your imaginary file has been deleted!", {
+                        icon: "success",
+                    })
+                  }
+              })
             }
         });
         }
